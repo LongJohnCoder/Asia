@@ -1,0 +1,12 @@
+<component>
+	name = "AsiaSbDxe"
+	category = ModulePart
+	LocalRoot = "ASIA\Foundation\Dxe\SB\"
+	RefName = "AsiaSbDxe"
+[files]
+"AsiaSbDxe.sdl"	
+"AsiaSbDxe.mak"	
+"AsiaSbDxe.h"	
+"AsiaSbDxe.c"	
+"AsiaSbDxe.dxs"	
+<endComponent>

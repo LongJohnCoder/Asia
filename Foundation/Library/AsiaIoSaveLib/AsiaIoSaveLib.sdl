@@ -1,0 +1,19 @@
+#//**********************************************************************
+#//**********************************************************************
+#//**                                                                  **
+#//**         Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.                                                         **
+#//**********************************************************************
+#//**********************************************************************
+TOKEN
+	Name  = AsiaIoSaveLib_SUPPORT
+	Value  = 1
+	TokenType = Boolean
+	TargetEQU = No
+	TargetMAK = Yes
+	Master = Yes
+	Help  = "Main switch to enable AsiaIoSaveLib support in Project"
+End
+MODULE
+	Help  = "Includes AsiaIoSaveLib.mak to Project"
+	File  = "AsiaIoSaveLib.mak"
+End

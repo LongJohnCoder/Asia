@@ -1,0 +1,26 @@
+#//**********************************************************************
+#//**********************************************************************
+#//**                                                                  **
+#//**     Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.  **
+#//**                                                                  **
+#//**********************************************************************
+#//**********************************************************************
+
+<component>
+	name = "AsiaPpiLib"
+	category = ModulePart
+	LocalRoot = "Asia\Interface\PPI\"
+	RefName = "AsiaPpiLib"
+[files]
+"AsiaPpiLib.sdl"	
+"AsiaPpiLib.mak"	
+"AsiaCpuPpi\AsiaCpuPpi.h"	
+"AsiaCpuPpi\AsiaCpuPpi.c"
+"AsiaCpuPpi\AsiaCpuPpiProtocol.h"	
+"AsiaDramPpi\AsiaDramPpi.h"	
+"AsiaDramPpi\AsiaDramPpi.c"	
+"AsiaNbPpi\AsiaNbPpi.h"	
+"AsiaNbPpi\AsiaNbPpi.c"	
+"AsiaSbPpi\AsiaSbPpi.h"	
+"AsiaSbPpi\AsiaSbPpi.c"	
+<endComponent>

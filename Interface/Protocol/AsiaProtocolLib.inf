@@ -1,0 +1,31 @@
+#//**********************************************************************
+#//**********************************************************************
+#//**                                                                  **
+#//**     Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.  **
+#//**                                                                  **
+#//**********************************************************************
+#//**********************************************************************
+
+[defines]
+BASE_NAME = AsiaProtocolLib
+COMPONENT_TYPE = LIBRARY
+
+[includes.common]
+  $(ASIA_SOURCE)\Ibv\Common
+  $(ASIA_SOURCE)\Ibv\Common\Include
+  $(ASIA_SOURCE)\Ibv\Common\Efi
+  $(ASIA_SOURCE)\Ibv\Common\Efi\Include
+  $(ASIA_SOURCE)\Ibv\Common\Framework
+  $(ASIA_SOURCE)\Ibv\Common\Framework\Include
+  .
+  $(ASIA_SOURCE)\Interface
+  
+[nmake.common]
+
+[sources.common]
+AsiaCpuProtocol\AsiaCpuProtocol.c
+AsiaCpuProtocol\AsiaCpuProtocol.h
+AsiaNbProtocol\AsiaNbProtocol.c
+AsiaNbProtocol\AsiaNbProtocol.h
+AsiaSbProtocol\AsiaSbProtocol.c
+AsiaSbProtocol\AsiaSbProtocol.h

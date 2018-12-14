@@ -1,0 +1,17 @@
+<component>
+	name = "AsiaPlatformLib - HX002EE0"
+	category = ModulePart
+	LocalRoot = "ASIA\platform\HX002EE0\"
+	RefName = "AsiaPlatformLib"
+[files]
+"AsiaPlatformLib.sdl"
+"AsiaPlatformLib.mak"
+"SbDriving.c"
+"SbDriving.h"
+"SIDRAMTbl.c"
+"SIDRAMTbl.h"
+"SIPCIEDriving.c"
+"SIPcieDriving.h"
+"AsiaPlatform.c"
+"AsiaPlatform.h"
+<endComponent>

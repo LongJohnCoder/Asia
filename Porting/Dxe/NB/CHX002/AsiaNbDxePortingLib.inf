@@ -1,0 +1,46 @@
+#//**********************************************************************
+#//**********************************************************************
+#//**                                                                  **
+#//**     Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.  **
+#//**                                                                  **
+#**********************************************************************
+#**********************************************************************
+
+[defines]
+  BASE_NAME = AsiaNbDxePortingLib
+  COMPONENT_TYPE = LIBRARY
+
+[sources.common]
+  AsiaNbDxeInit.c
+  NbDxePcie.c
+  NbDxePciePrePci.c
+
+[includes.common]
+  $(ASIA_SOURCE)\Ibv\Common
+  $(ASIA_SOURCE)\Ibv\Common\Include
+  $(ASIA_SOURCE)\Ibv\Common\Efi
+  $(ASIA_SOURCE)\Ibv\Common\Efi\Include
+  $(ASIA_SOURCE)\Ibv\Common\Framework
+  $(ASIA_SOURCE)\Ibv\Common\Framework\Include
+  $(ASIA_SOURCE)\Ibv\Common\Cpu\Include
+  $(ASIA_SOURCE)\IBV\Common\Library\Dxe\Include
+  $(ASIA_SOURCE)\IBV\Common\Include\Pei
+  $(ASIA_SOURCE)\IBV\Common\Include\Pei
+  .
+  $(ASIA_SOURCE)\Interface
+  $(ASIA_SOURCE)\Foundation\
+  $(ASIA_SOURCE)\Foundation\Dxe\Nb
+  $(ASIA_SOURCE)\Foundation\Include
+  $(ASIA_SOURCE)\Foundation\Library\Include
+  $(ASIA_SOURCE)\Foundation\Pei\Dram
+  $(ASIA_SOURCE)\Porting\Include
+  $(ASIA_SOURCE)\Platform\$(ASIA_MBTYPE)
+  $(ASIA_SOURCE)\Porting\Pei\Dram\CHX002
+[libraries.common]
+  EfiDriverLib
+  AsiaIoSaveLib
+  AsiaPlatformLib
+  CpuIA32Lib
+
+[nmake.common]
+  ASM_FLAGS = $(ASM_FLAGS) /W0

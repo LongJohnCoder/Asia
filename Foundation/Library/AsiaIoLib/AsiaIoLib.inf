@@ -1,0 +1,39 @@
+#//**********************************************************************
+#//**********************************************************************
+#//**                                                                  **
+#//**     Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.  **
+#//**                                                                  **
+#//**********************************************************************
+#//**********************************************************************
+
+[defines]
+  BASE_NAME = AsiaIoLib
+  COMPONENT_TYPE = LIBRARY
+
+[sources.common]
+  AsiaIoLib.c
+  
+[sources.ia32]
+  Ia32\AsiaIoAccess.asm
+[sources.x64]
+  x64\AsiaIoAccess.asm
+  
+[includes.common]
+  $(ASIA_SOURCE)\Ibv\Common
+  $(ASIA_SOURCE)\Ibv\Common\Include
+  $(ASIA_SOURCE)\Ibv\Common\Efi
+  $(ASIA_SOURCE)\Ibv\Common\Efi\Include
+  $(ASIA_SOURCE)\Ibv\Common\Framework
+  $(ASIA_SOURCE)\Ibv\Common\Framework\Include
+  $(ASIA_SOURCE)\Ibv\Common\Cpu\include
+  .
+  $(ASIA_SOURCE)\Interface
+  $(ASIA_SOURCE)\Foundation\include
+  $(ASIA_SOURCE)\Foundation\Library\Include
+
+[libraries.common]
+  CpuIA32Lib
+
+[nmake.common]
+  ASM_FLAGS = $(ASM_FLAGS) /W0
+  

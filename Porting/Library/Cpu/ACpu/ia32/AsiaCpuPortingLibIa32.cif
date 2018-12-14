@@ -1,0 +1,16 @@
+#//**********************************************************************
+#//**********************************************************************
+#//**                                                                  **
+#//**     Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.  **
+#//**                                                                  **
+#//**********************************************************************
+#//**********************************************************************
+
+<component>
+	name = "AsiaCpuPortingLib - IA32"
+	category = ModulePart
+	LocalRoot = "Asia\Porting\Library\Cpu\c7cn\ia32"
+	RefName = "AsiaCpuPortingLibIA32"
+[files]
+"CpuIa32.asm"
+<endComponent>

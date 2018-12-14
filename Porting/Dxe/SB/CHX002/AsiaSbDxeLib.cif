@@ -1,0 +1,10 @@
+<component>
+	name = "AsiaSbDxePorting"
+	category = ModulePart
+	LocalRoot = "ASIA\Porting\Dxe\SB\CHX001\"
+	RefName = "AsiaSbDxeLib"
+[files]
+"AsiaSbDxeInit.c"
+"HdAc.c"
+"HdAc.h"
+<endComponent>

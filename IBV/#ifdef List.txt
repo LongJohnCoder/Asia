@@ -1,0 +1,20 @@
+
+
+1. MB_6BIT_VID_SUPPORT
+The bit width of NANO VID can be 6(CNA) or 7(CNBxx). If the board supports 6-bit VID, the "MB_6BIT_VID_SUPPORT" will be definded and "#ifdef MB_6BIT_VID_SUPPORT" will return TRUE. Likewise, if the board supports 7-bit VID, "#ifdef MB_6BIT_VID_SUPPORT" will return FALSE.
+
+2. DDR3_SUPPORT Vs. DDR2_SUPPORT
+When the board support DD3 DIMM, the "DDR3_SUPPORT" will be defined. "#ifdef DDR3_SUPPORT" will return TRUE. When the board support DDR2 DIMM, the "DDR2_SUPPORT"will be defined. "#ifdef DDR3_SUPPORT" will return TRUE.
+
+3. EC_PS2KBC_SUPPORT
+PS2 Keyboard can be controller by internal KBC or EC KBC. when EC KBC is used, the internal KBC must be disabled, since they use the same IO port resource. When EC KBC is used, "EC_PS2KBC_SUPPORT" will be defined. "#ifdef EC_PS2KBC_SUPPORT " will return TRUE.
+
+4. RX_IO_TIMING_SI_SUPPORT Vs. TX_IO_TIMING_SI_SUPPORT
+These two Macros define where the IO Timing of DRAM is from. When RX_IO_TIMING_SI_SUPPORT is defined, the RDSIT and DQSI is provided by SI, or by Calibration Algorithm. When TX_IO_TIMING_SI_SUPPORT is defined, the DQO and DQSO is provided by SI, or by Calibration Algorithm.
+
+5. RX_IO_TIMING_SI_SUPPORT_VT5965A Vs. TX_IO_TIMING_SI_SUPPORT_VT5965A
+These two Macros is used for DRAM IO Calibration of VT5965A Motherboard specially.
+
+6. EUP_ERP_LOT6_SUPPORT
+When the LAN on Mother Board support EuP/ErP Lot6, the "EUP_ERP_LOT6_SUPPORT" will be supported.
+

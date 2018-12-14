@@ -1,0 +1,59 @@
+//**********************************************************************
+//**********************************************************************
+//**                                                                  **
+//**     Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.  **
+//**                                                                  **
+//**********************************************************************
+//**********************************************************************
+
+<component>
+	name = "AsiaCpuPortingLib"
+	category = ModulePart
+	LocalRoot = "Asia\Porting\Library\Cpu\ACpu\"
+	RefName = "AsiaCpuPortingLib"
+[files]
+"Vt.c"
+"Vt.h"
+"PStates.c"
+"PStates.h"
+"CpuFeatureInit.c"
+"CpuidMaximumLimit.c"
+"CpuidMaximumLimit.h"
+"CpuInfo.c"
+"CState.c"
+"CState.h"
+"EpsInit.c"
+"EpsInit.h"
+"ExecuteDisable.c"
+"ExecuteDisable.h"
+"FastString.c"
+"FastString.h"
+"Ferr.c"
+"Ferr.h"
+"MachineCheck.c"
+"MachineCheck.h"
+"MicrocodeUpdate.c"
+"MicrocodeUpdate.h"
+"MonitorMWait.c"
+"MonitorMWait.h"
+"Prefetcher.c"
+"Prefetcher.h"
+"Prochot.c"
+"Prochot.h"
+"ThermalMonitor.c"
+"ThermalMonitor.h"
+"TPREcho.c"
+"TPREcho.h"
+"ACpuCommon.c"
+"TscDelay.c"
+"Pmon.c"
+"Pmon.h"
+"TscDeadLine.c"
+"TscDeadLine.h"
+"AsiaCpuPortingLib.sdl"
+"AsiaCpuPortingLib.mak"
+
+[parts]
+"AsiaCpuPortingLibIA32"
+"AsiaCpuPortingLibX64"
+<endComponent>

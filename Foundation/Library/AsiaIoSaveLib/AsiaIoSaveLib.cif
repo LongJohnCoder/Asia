@@ -1,0 +1,10 @@
+<component>
+	name = "AsiaIoSaveLib"
+	category = ModulePart
+	LocalRoot = "ASIA\Foundation\Library\AsiaIoSaveLib\"
+	RefName = "AsiaIoSaveLib"
+[files]
+"AsiaIoSaveLib.sdl"	
+"AsiaIoSaveLib.mak"	
+"AsiaIoSaveLib.c"	
+<endComponent>

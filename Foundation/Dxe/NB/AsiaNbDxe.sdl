@@ -1,0 +1,27 @@
+#//**********************************************************************
+#//**********************************************************************
+#//**     Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.  **
+#//**                                                                  **
+#//**********************************************************************
+#//**********************************************************************
+TOKEN
+	Name  = "AsiaNbDxe_SUPPORT"
+	Value  = "1"
+	Help  = "Main switch to enable AsiaNbDxe support in Project"
+	TokenType = Boolean
+	TargetEQU = Yes
+	TargetMAK = Yes
+	Master = Yes
+End
+
+MODULE
+	Help  = "Includes AsiaNbDxe.mak to Project"
+	File  = "AsiaNbDxe.mak"
+End
+
+ELINK
+	Name  = "$(BUILD_DIR)\AsiaNbDxe.ffs"
+	Parent  = "FV_MAIN"
+	InvokeOrder = BeforeParent
+End
+

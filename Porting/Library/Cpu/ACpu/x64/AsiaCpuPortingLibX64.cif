@@ -1,0 +1,16 @@
+#//**********************************************************************
+#//**********************************************************************
+#//**                                                                  **
+#//**     Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.  **
+#//**                                                                  **
+#//**********************************************************************
+#//**********************************************************************
+
+<component>
+	name = "AsiaCpuPortingLib - X64"
+	category = ModulePart
+	LocalRoot = "Asia\Porting\Library\Cpu\c7cn\x64"
+	RefName = "AsiaCpuPortingLibX64"
+[files]
+"CpuX64.asm"
+<endComponent>

@@ -1,0 +1,12 @@
+<component>
+	name = "AsiaNbDxePorting"
+	category = ModulePart
+	LocalRoot = "ASIA\Porting\Dxe\NB\CHX001\"
+	RefName = "AsiaNbDxeLib"
+[files]
+"AsiaNbDxeInit.c"
+"NbDxePcie.c"
+"NbDxePcie.h"
+"VcpCopyFunc.c"
+"GfxShadowInfoFunc.c"
+<endComponent>

@@ -1,0 +1,42 @@
+#//**********************************************************************
+#//**********************************************************************
+#//**                                                                  **
+#//**     Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.  **
+#//**                                                                  **
+#//**********************************************************************
+#//**********************************************************************
+
+
+[defines]
+  BASE_NAME = AsiaNbDxe
+  FILE_GUID = BEAA039C-24BD-43ad-821A-BEC3C88C8B12
+  COMPONENT_TYPE = BS_DRIVER
+
+[sources.common]
+  AsiaNbDxe.c
+  
+[includes.common]
+  $(ASIA_SOURCE)\Ibv\Common
+  $(ASIA_SOURCE)\Ibv\Common\Include
+  $(ASIA_SOURCE)\Ibv\Common\Include\Pei
+  $(ASIA_SOURCE)\Ibv\Common\Efi
+  $(ASIA_SOURCE)\Ibv\Common\Efi\Include
+  $(ASIA_SOURCE)\Ibv\Common\Framework
+  $(ASIA_SOURCE)\Ibv\Common\Framework\Include
+  $(ASIA_SOURCE)\IBV\Common\Library\Dxe\Include
+  .
+  $(ASIA_SOURCE)\Interface\
+  $(ASIA_SOURCE)\Foundation\
+  $(ASIA_SOURCE)\Foundation\Include
+  $(ASIA_SOURCE)\Foundation\Library\Include
+
+[libraries.common]
+  AsiaProtocolLib
+  AsiaNbDxePortingLib
+  EfiDriverLib
+  EfiScriptLib
+
+[nmake.common]
+  IMAGE_ENTRY_POINT = AsiaNbDxeEntryPoint
+  DPX_SOURCE = AsiaNbDxe.dxs
+  LINK_STD_FLAGS=$(LINK_STD_FLAGS) /align:32  

@@ -1,0 +1,23 @@
+//**********************************************************************
+//**********************************************************************
+//**                                                                  **
+//**     Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.  **
+//**                                                                  **
+//**********************************************************************
+//**********************************************************************
+
+<component>
+	name = "AsiaNbPeiPorting"
+	category = ModulePart
+	LocalRoot = "Asia\Porting\Pei\NB\CHX002\"
+	RefName = "AsiaNbPeiLib"
+[files]
+"NbPcie.c"
+"NbInit.c"
+"NbLibPpi.h"
+"DbgSignal.c"
+"NbHif.c"
+"NbHif.h"
+[parts]
+"AsiaNbPeifunction"
+<endComponent>

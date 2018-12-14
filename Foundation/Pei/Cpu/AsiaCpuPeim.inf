@@ -1,0 +1,40 @@
+#//**********************************************************************
+#//**********************************************************************
+#//**                                                                  **
+#//**     Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.  **
+#//**                                                                  **
+#//**********************************************************************
+#//**********************************************************************
+
+[defines]
+BASE_NAME            = AsiaCpuPeim
+FILE_GUID            = a55ef9b1-400b-4e06-895e-449f43baa450
+COMPONENT_TYPE       = PE32_PEIM
+BUILD_NUMBER		 = 0001
+VERSION_STRING		 = "CPU-R062"
+
+[sources.common]
+  AsiaCPUPeim.c
+
+[includes.common]
+  $(ASIA_SOURCE)\Ibv\Common
+  $(ASIA_SOURCE)\Ibv\Common\Efi
+  $(ASIA_SOURCE)\Ibv\Common\Include
+  $(ASIA_SOURCE)\Ibv\Common\Include\Pei
+  $(ASIA_SOURCE)\Ibv\Common\Efi\Include
+  $(ASIA_SOURCE)\Ibv\Common\FrameWork
+  $(ASIA_SOURCE)\Ibv\Common\FrameWork\Include
+  $(ASIA_SOURCE)\Ibv\Common\Library\Dxe\Include
+  $(ASIA_SOURCE)\Ibv\Common\Library\Pei\Include
+  .
+  $(ASIA_SOURCE)\Interface
+ 
+[libraries.common]
+  PeiLib
+  AsiaPpiLib
+  AsiaCpuPortinglib
+
+[nmake.common]
+  IMAGE_ENTRY_POINT= AsiaCpuPeimEntry
+  DPX_SOURCE=AsiaCPUPeim.dxs
+

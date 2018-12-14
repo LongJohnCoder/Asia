@@ -1,0 +1,18 @@
+//**********************************************************************
+//**********************************************************************
+//**                                                                  **
+//**     Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.  **
+//**                                                                  **
+//**********************************************************************
+//**********************************************************************
+
+<component>
+	name = "AsiaSbPeiPorting"
+	category = ModulePart
+	LocalRoot = "Asia\Porting\Pei\SB\CHX002\"
+	RefName = "AsiaSbPeiLib"
+[files]
+"SbInit.c"
+"SbPmio.c"
+"SbLibPpi.h"
+<endComponent>

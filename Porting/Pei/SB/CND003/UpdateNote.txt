@@ -1,0 +1,74 @@
+//**************************************************************************
+//**************************************************************************
+//**                                                                      **
+//**  Copyright (c) 2015 - 2017 Shanghai Zhaoxin Semiconductor Co., Ltd.  **
+//**                                                                      **
+//**************************************************************************
+//**************************************************************************
+
+
+
+#ifdef ZX_SECRET_CODE
+/***************************************************************************
+CND003 Asia Folder Updates:
+there some updates on codes for CND003, 
+most of code for CND003 was copy from the last project, 
+but we also need to update some code for new project. 
+the reason may be to get a better code style... or to resolve some coding problems..or others
+Here we summarize the changes on CND003 code in CHX002 project:
+
+1. Pci temp assignment method in PEI stage
+@previous: we not assign bus resource for PEA0/1/2/3/4/5 and PEB0/1, this is because 
+		we not use access or initialize functions under our DN ports
+@Now: we will assign a temp bus number for them, this is because we may need to check 
+	the device type/PCIE port type/device CRS completion or other reasons. 
+	when we do a temp assigment for all DN ports, we can access them.
+@Ref commit: DSZ-20180329: Update settings for Downstream Port ordering queue timing bit RTRANS2TFIX
+
+2. CRS check mechanism
+@previous: CRS check mechanism code for SOC and IOE all in NbPcie.c
+		this method was not good!!  the best way to implement the code for IOE is 
+		to separate the IOE code from SOC code. 
+@Now: SOC side and IOE side will deal with CRS issue by self-code, in this way, the code 
+	was easy to porting to another project
+@Ref Commit:CJW-2018032602 add CRS handle code for CND003 PCIE
+
+3.about DN port P/E value setting
+for DN port/RP's  Rx1A2[7]  RTRANS2TFIX, SW need to configure it according to the 
+PCIE Port Type, when the function under the port is SwitchUpstreamPort, we must set 
+this bit to 1 in P/E mode, or, we need to set it to 0.
+@previous:  TP BIOS Jimmy will handle it in DXE post PCI stage, IOE code was not independent
+@Now: we move it to PEI stage,  and code for SOC also need to be set in PEI stage.
+@Ref Commit: DSZ-20180329: Update settings for Downstream Port ordering queue timing bit RTRANS2TFIX
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+functions update:
+1. add IoePcieSearchCapability() to search specific capability structure in configure space
+	-search Pci Capability
+	-search PCIe Capability
+	@ref commit: DSZ-20180329: Update settings for Downstream Port ordering queue timing bit RTRANS2TFIX
+2. add IOEPCIEDnOrderingQueueTiming() for RTRANS2TFIX P/E value setting 
+	@ref commit: DSZ-20180329: Update settings for Downstream Port ordering queue timing bit RTRANS2TFIX
+3. add IoePeiSpeSettingInit()  for RTRANS2TFIX P/E value setting   -- need to get current setting
+	@ref commit: DSZ-20180329: Update settings for Downstream Port ordering queue timing bit RTRANS2TFIX
+
+		
+****************************************************************************/
+
+
+
+We record updates for CHX002 in this file:
+[Before R01]
+DSZ-20180329: Update settings for Downstream Port ordering queue timing bit RTRANS2TFIX
+**JNY-2018032801 Update CND003 Code for PCIE
+**JNY-2018032701 Fix secret code complie issue
+CJW-2018032602 add CRS handle code for CND003 PCIE
+**DSZ-20180323: Update IOE PERST GPIO config
+**JNY-2018031902 Update CND003 SI setting for CHX002 EH0
+**JNY2018031901 porting CND003 code for PCIE EC0_01
+
+
+
+#endif

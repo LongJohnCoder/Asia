@@ -1,0 +1,12 @@
+<component>
+	name = "ASIA - CPU"
+	category = ModulePart
+	LocalRoot = "Asia\IBV\AMI\"
+	RefName = "ASIA_CPU"
+[files]
+"ASIA_CPU.SDL"
+[parts]
+"AsiaCpuPei"
+"AsiaCpuDxe"
+"AsiaCpuPortingLib"
+<endComponent>

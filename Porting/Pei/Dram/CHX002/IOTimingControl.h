@@ -1,0 +1,1472 @@
+//**********************************************************************
+//**********************************************************************
+//**                                                                  **
+//**     Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.  **
+//**                                                                  **
+//**********************************************************************
+//**********************************************************************
+
+#ifndef _IOTIMINGCONTROL_H
+#define _IOTIMINGCONTROL_H
+
+
+//FOR Temp, will Modify Base SI  suggest
+#define TNI_THRESHOLD 0x10
+//#define DQSI_THRESHOLD 0x10
+//LGE20180615 CHANGE FOR TEMP
+#define DQSI_THRESHOLD 0x0A
+
+#define DQSI_VREF_CONTINUOUS_STEP 0x03
+#define DQSI_VREF_THRESHOLD 0x02
+#define DQSO_THRESHOLD 0x10
+//LGE20180617 Patch DQO Threshold
+//#define DQO_VREF_THRESHOLD 0x0A
+#define DQO_VREF_THRESHOLD 0x08
+
+#define TXVREF_INDEX_BEGIN 0
+#define TXVREF_INDEX_END 74
+#define TXVREF_INDEX_STEP 1
+
+#define ALLRANK 0xFF
+#define ALLBYTE 0xFF
+
+#define TX_DQ_CLOCK_Address_H  0x10
+#define TX_DQ_CLOCK_PATTERN    0x5A
+
+#define RX_INPUT_ENABLE_CLOCK_ADDRESS_H 	0x00
+#define RX_INPUT_ENABLE_CLOCK_PATTERN   	0x5A
+
+#define RX_PAGE0_MPR0_ADDRESS 	0x00000
+#define RX_PAGE0_MPR1_ADDRESS   0x08000
+#define RX_INPUT_DQS_CLOCK_PATTERN 	 	0x5A
+
+//TNI = UpperBound - 1/2T
+#define TNI_ADJUST    0x10
+
+#define TNI_ADJUST_LOWER_BOUND  0x28
+#define TNI_ADJUST_UPPER_BOUND 0x10
+
+#define NOT_ECC_BYTE FALSE
+#define ECC_BYTE TRUE
+
+#define DQSI_QUATER_T_DELAY  0x01
+#define DQSI_HALF_T_DELAY    0x02
+
+#define READ_LEVELING_CMP_BOTH_EDGE     0x03
+#define READ_LEVELING_CMP_RAISING_EDGE  0x04
+
+
+//#define PRINT_RX_EYE
+#define RXEYE_PRINT_BIT_BEG    0X0
+#define RXEYE_PRINT_BIT_END    0X1 // not included.
+#define RXEYE_PRINT_BYTE_BEG   0X0
+#define RXEYE_PRINT_BYTE_END   0X8 // not included.
+#define RXVREF_STEP_BASE_SI    0X70
+#define RXVREF_POS_NEG_EYE     0X0
+//#define RXVREF_BY_CHANNEL
+
+
+#define VREF_FINE_STEP        2
+#define VREF_COARSE_STEP      1
+
+
+//Calibration result
+#define D0F3_DMIOSEL_TNI_HIGH                    (0x0 << 0)
+#define D0F3_DMIOSEL_TNI_LOW                     (0x1 << 0)
+#define D0F3_DMIOSEL_DQSO_HIGH                   (0x2 << 0)
+#define D0F3_DMIOSEL_DQSO_LOW                    (0x3 << 0) 
+#define D0F3_DMIOSEL_DQO_HIGH                    (0x4 << 0)
+#define D0F3_DMIOSEL_DQO_LOW                     (0x5 << 0)
+#define D0F3_DMIOSEL_WLVL                        (0x8 << 0)
+#define D0F3_DMIOSEL_WLVL_LAST_ZERO              (0x9 << 0)
+#define D0F3_DMIOSEL_WLVL_FIRST_ONE             (0xA << 0)
+
+
+
+//Binary code To Gray code
+UINT8 Binary2Gray(UINT8 Binary);
+
+//Gray code To Binary code
+UINT8 Gray2Binary(UINT8 Gray);
+
+
+
+VOID DramToConnector_Convert(
+	IN EFI_PEI_SERVICES **PeiServices,
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8 RankIndex,
+	IN UINT16 ByteIndex, 
+	IN UINT8 ByteValue,
+	IN OUT UINT8 *ConvertValue);
+
+VOID CalErrorReboot(
+	IN EFI_PEI_SERVICES **PeiServices,
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8   IOTimingMode);
+
+
+
+UINT16 CalValueToIndex(UINT16 WholeT, UINT16 Phase);
+
+
+VOID IndexToValue(
+	IN EFI_PEI_SERVICES **PeiServices,
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8 RankIndex,
+	UINT16 Index, 
+	UINT16 *pWholeT, 
+	UINT16 *pPhase, 
+	UINT16 Flag);
+
+
+
+UINT16 ValueToIndex(	
+	IN EFI_PEI_SERVICES **PeiServices,
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8 RankIndex, 
+	UINT16 WholeT, 
+	UINT16 Phase, 
+	UINT16 Flag);
+
+
+VOID TriggerLoadReg(
+	IN EFI_PEI_SERVICES **PeiServices,
+	IN DRAM_ATTRIBUTE *DramAttr
+	);
+
+
+VOID ClearAllRankSize(IN DRAM_ATTRIBUTE *DramAttr);
+
+
+VOID EnableTargetRank(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8 RankNo);
+
+
+VOID SetTargetRankToFirst256MB(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8 RankNo);
+
+
+//disable interlevel
+VOID SaveRestoreBARASelect(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN BOOLEAN	Save,
+	IN OUT UINT16	*SavedByte
+);
+
+
+VOID SaveRestoreREFC(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN BOOLEAN	Save,
+	IN OUT UINT16	*SavedByte
+);
+
+VOID SaveRestoreREFCDQSO(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN BOOLEAN	Save,
+	IN OUT UINT16	*SavedByte
+);
+
+VOID SaveRestoreSelfRef(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN BOOLEAN	Save,
+	IN OUT UINT16	*SavedByte
+);
+
+
+VOID SaveRestoreOdt(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN BOOLEAN	Save,
+	IN OUT UINT16	*SavedByte
+);
+
+
+VOID SaveRestoreNBODTLookup(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8 RankIndex,
+	IN BOOLEAN	Save,
+	IN OUT UINT16	*SavedByte);
+
+
+VOID SaveRestoreInorder(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN BOOLEAN	Save,
+	IN OUT UINT16	*SavedByte);
+
+
+VOID SaveRestoreOnTheFly(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN BOOLEAN	Save,
+	IN OUT UINT16	*SavedByte
+);
+
+
+VOID SaveRestorePageMode(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN BOOLEAN	Save,
+	IN OUT UINT16	*SavedByte
+);
+
+
+VOID SaveRestoreBAScramble(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN BOOLEAN	Save,
+	IN OUT UINT16	*SavedByte
+);
+
+VOID SaveRestoreBGDelay(
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN BOOLEAN	Save,
+		IN OUT UINT16	*SavedByte
+	);
+
+
+VOID DRAMIOCTL(
+	IN EFI_PEI_SERVICES **PeiServices,
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8   IOTimingMode,
+	IN UINT8   IOSelectionMode,// manul mode(W/R) or calibration mode(R)
+	IN BOOLEAN IsWrite,
+	IN UINT8   RankIndex,//RankIndex cha:(0->3) chb:(4->7)
+	IN UINT8   ByteIndex,
+	IN UINT8   BitSelect, //mask!!! 0x01 for bit0, 0x02 for bit1,0x03 for bit0 and bit1 ....
+	IN UINT8   IsPos,   //only use  for TX_DQSO RX_DQSI phase select
+	IN OUT UINT16  *Value16);
+
+
+VOID DumpTXRX(
+  IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+  IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+  IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+  IN DRAM_ATTRIBUTE *DramAttr,	
+  IN UINT8 IOTimingMode,
+  IN UINT16 *Range,
+  IN UINT8 RankNo,
+  IN UINT8 MarkNo);
+
+VOID SetVrMap(	
+	IN EFI_PEI_SERVICES	**PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+	IN PEI_PCI_CFG_PPI	*pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+    IN DRAM_ATTRIBUTE *DramAttr,
+    IN UINT8		PrIdx,
+	IN UINT8		VrIdx,
+	IN BOOLEAN      Enable
+);
+
+
+VOID DumpRxVrefAndTxVref(
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr);
+
+
+VOID DumpRxVrefIndex(
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN BOOLEAN ECC_ENABLE);
+
+
+BOOLEAN IoTimingRestore(
+  IN EFI_PEI_SERVICES **PeiServices,
+  #if (PI_SPECIFICATION_VERSION < 0x00010000)
+  IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+  IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+  IN DRAM_ATTRIBUTE *DramAttr);
+
+
+//daisy add patch for RX2DSCAN
+void SetRxVref(
+  IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+  IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+  IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+  IN DRAM_ATTRIBUTE *DramAttr);
+
+
+
+VOID SetRRDelay(
+  IN EFI_PEI_SERVICES **PeiServices,
+  IN DRAM_ATTRIBUTE *DramAttr   
+    );
+
+UINT32 GetMprAddr(
+IN UINT8 NewPattern,
+IN UINT8 MprNo	);
+
+
+
+VOID WriteMprPattern(
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN UINT8 RankIndex,
+		IN UINT8 NewPattern,
+		IN UINT8 MprNo);
+
+
+
+// TNI Calibraion Related
+// clear -- save --set --calibration
+// CLEAR
+VOID Rx_TNI_ClearDataset(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8 RankIndex);
+
+
+
+UINT16 Rx_TNI_Convert_To_Value(
+	IN EFI_PEI_SERVICES **PeiServices,
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8 RankIndex,
+	IN UINT16 Value16);
+
+
+UINT16 Rx_TNI_Convert_To_Index(
+	IN EFI_PEI_SERVICES **PeiServices,
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8 RankIndex,
+	IN UINT16 Value16);
+
+
+//Save
+VOID Rx_TNI_SaveDataSet(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN UINT8 RankIndex,
+		IN UINT8 ByteNo);
+
+
+//CHECK
+BOOLEAN Rx_TNI_ReadLeveling_CheckRange(
+		IN EFI_PEI_SERVICES **PeiServices,
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN UINT8 RankIndex,	
+		IN BOOLEAN ECC_ENABLE,
+		OUT UINT16 *TNIRange);
+
+
+VOID Rx_TNI_Set_byChannel(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN BOOLEAN ECC_ENABLE,
+	IN UINT8 RankIndex,
+	IN UINT8 ByteIndex,
+	IN UINT16 TNI_Setting);
+
+
+VOID Rx_TNI_Set_byRank(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN BOOLEAN ECC_ENABLE,
+	IN UINT8 RankIndex);
+
+
+//SET
+//ALL CHA & CHB  can use this function set tni, CHA ->(0:3) CHB->(4:7)
+VOID Rx_TNI_SetRegister_byRank(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN BOOLEAN ECC_ENABLE,
+	IN UINT8 RankIndex);
+
+
+
+
+VOID Rx_TNI_ReadLeveling_SetLowBound_byRank(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN BOOLEAN ECC_ENABLE,
+	IN UINT8 RankIndex);
+
+
+//Calibration
+VOID Rx_TNI_ReadLeveling(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8 RankNo,
+	IN UINT8 TniStep,
+	IN BOOLEAN EccByte,
+	IN UINT8 CmpEdge, //useless in CHX002
+	IN UINT32 DataPattern);
+
+
+VOID Rx_TNI_ReadLeveling_PreambleTraining(
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN UINT8 RankNo,
+		IN UINT8 TniStep,
+		IN BOOLEAN EccByte,
+		IN UINT8 CmpEdge,
+		IN UINT32 DataPattern);
+
+
+VOID Rx_TNI_LCU(
+IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8 RankNo,
+	IN UINT8 TniStep,
+	IN UINT8 DataPattern);
+
+
+
+// DQSI Calibrtion Related
+VOID Rx_DQSI_ClearDataset(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8 RankIndex);
+
+
+VOID Rx_DQSI_SaveDataSet(
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN UINT8 RankIndex,
+		IN UINT8 ByteNo);
+
+
+
+VOID Rx_DQSI_ReadLeveling_SaveRange(
+		IN EFI_PEI_SERVICES **PeiServices,
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN UINT8 RankIndex,	
+		IN BOOLEAN ECC_ENABLE,
+		OUT IN UINT16 (*DQSIRange)[ASIA_MAX_BIT][2]);  
+
+
+
+BOOLEAN Rx_DQSI_ReadLeveling_CheckRange(
+		IN EFI_PEI_SERVICES **PeiServices,
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN UINT8 RankIndex,	
+		IN BOOLEAN ECC_ENABLE,
+		OUT IN UINT8 (*DQSIRange)[ASIA_MAX_BIT][2]);
+
+
+VOID Set_DQSI_byRank(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr, 
+	IN BOOLEAN		ECC_ENABLE,
+	IN UINT8		RankIndex,
+	IN UINT16		SetValue);
+
+
+
+VOID Rx_DQSI_SetRegister_byRank(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr, 
+	IN BOOLEAN		ECC_ENABLE,
+	IN UINT8		RankIndex);
+
+
+VOID Rx_DQSI_Delay(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8 DelayType);
+
+
+VOID Rx_DQSI_ReadLeveling(
+IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8 RankNo,
+	IN UINT8 DqsiStep,
+	IN UINT32 DataPattern,
+	IN BOOLEAN EccByte);
+VOID Rx_ReadPreamble_Training(
+IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8 RankNo,
+	IN UINT8 DqsiStep,
+	IN UINT32 DataPattern,
+	IN BOOLEAN EccByte);
+
+
+VOID Rx_DQSI_Preamble_Training(
+IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8 RankNo,
+	IN UINT8 DqsiStep,
+	IN UINT32 DataPattern,
+	IN BOOLEAN EccByte);
+
+
+VOID Rx_DQSI_LCU(
+IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8 RankNo,
+	IN UINT8 DqsiStep,
+	IN UINT8 DataPattern);
+
+
+
+VOID TNI_WholeT_PatchCode(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8 ChannelIndex,
+	IN UINT8 ByteIndex,
+	IN UINT16 TMPTNISetting);
+
+
+VOID TNI_WholeT_Adjust(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8 ChannelIndex,
+	IN UINT8 ByteIndex);
+
+
+VOID HW_TNI(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr);
+
+
+VOID HW_TNI_LCU(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr);
+
+
+VOID RX_3DScan_By_TNI(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr);
+
+
+VOID RX_2DScan_By_TNI(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr);
+
+
+VOID RX_Scan_with_SI_Rxvref(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr);
+
+
+VOID RX_3DScan_By_DQSI(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr);
+
+
+
+VOID HW_DQSI(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr);
+
+
+VOID HW_DQSI_LCU(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr);
+
+
+// DQO Calibrtion Related
+VOID TX_DQO_ClearDataset(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr
+	);
+
+
+
+UINT16 Tx_DQO_Convert_To_Value(
+	IN EFI_PEI_SERVICES **PeiServices,
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8 RankIndex,
+	IN UINT16 Value16);
+
+
+
+UINT16 Tx_DQO_Convert_To_Index(
+	IN EFI_PEI_SERVICES **PeiServices,
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8 RankIndex,
+	IN UINT16 Value16);
+
+
+VOID Tx_DQO_LCU_SaveDataSet(
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN UINT8 RankIndex,
+		IN UINT8 ByteNo);
+
+
+
+BOOLEAN Tx_DQO_LCU_CheckRange(
+		IN EFI_PEI_SERVICES **PeiServices,
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN UINT8 RankIndex,	
+		IN BOOLEAN ECC_ENABLE,
+		OUT UINT16 *DQORange);
+
+
+BOOLEAN  TX_DQO_LCU_SetRegister_CHA(
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN BOOLEAN ECC_ENABLE);
+
+
+BOOLEAN  TX_DQO_LCU_SetRegister_CHB(
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN BOOLEAN ECC_ENABLE);
+
+
+VOID Tx_DQO_SetWholet(
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN UINT8 RankIndex,
+		IN UINT8 *WHOLE_T);
+
+
+VOID Tx_DQO_SetPhase(
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN UINT8 RankIndex,
+		IN UINT8 *PHASE);
+
+
+VOID Tx_DQO_LCU_Sequence(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8 RankIndex,
+	IN UINT8 DqoStep);
+
+
+// DQSO Calibrtion Related
+VOID TX_DQSO_ClearDataset(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr);
+
+
+UINT16 Tx_DQSO_Convert_To_Value(
+	IN EFI_PEI_SERVICES **PeiServices,
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8 RankIndex,
+	IN UINT16 Value16);
+
+
+
+UINT16 Tx_DQSO_Convert_To_Index(
+	IN EFI_PEI_SERVICES **PeiServices,
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8 RankIndex,
+	IN UINT16 Value16);
+
+
+VOID Tx_DQSO_LCU_SaveDataSet(
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN UINT8 RankIndex,
+		IN UINT8 ByteNo);
+
+
+BOOLEAN Tx_DQSO_LCU_CheckRange(
+		IN EFI_PEI_SERVICES **PeiServices,
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN UINT8 RankIndex,	
+		IN BOOLEAN ECC_ENABLE,
+		OUT UINT16 *DQSORange);
+
+
+VOID TX_DQSO_LCU_SetRegister_CHA(
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN BOOLEAN ECC_ENABLE);
+
+
+VOID TX_DQSO_LCU_SetRegister_CHB(
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN BOOLEAN ECC_ENABLE);
+
+
+VOID Tx_DQSO_SetWholet(
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN UINT8 RankIndex,
+		IN UINT16 WHOLET);
+
+
+VOID Tx_DQSO_SetPhase(
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN UINT8 RankIndex,
+		IN UINT8 *Phase);
+
+
+
+
+
+VOID Tx_DQSO_LCU_Sequence(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8 RankNo,
+	IN UINT8 DqsoStep);
+
+
+
+
+VOID Tx_DQSO_WriteLeveling(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8 RankNo,
+	IN UINT8 DqsoStep);
+
+
+BOOLEAN Tx_DQSO_WriteLeveling_Filter(
+	IN EFI_PEI_SERVICES **PeiServices,
+	IN DRAM_ATTRIBUTE *DramAttr
+	//IN TX_IO_CALIBRATION_INFO *CalDQSOResult
+	);
+
+
+VOID Tx_DQSO_WriteLeveling_SaveDataSet(
+  IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+  IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+  IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+    IN DRAM_ATTRIBUTE *DramAttr,
+    IN UINT8 SaveMode,
+    IN UINT8 RankIndex,
+    IN UINT8 ByteNo);
+
+
+VOID TX_DQSO_WriteLeveling_SetPhase(
+  IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+  IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+  IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+  IN DRAM_ATTRIBUTE *DramAttr,	
+  IN UINT8 CheckByteNum,
+  IN UINT8 DqsoStep,
+  IN UINT8 Channel);
+
+
+VOID TX_DQSO_WriteLeveling_SetWholeT(
+  IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+  IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+  IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+  IN DRAM_ATTRIBUTE *DramAttr,	
+  IN UINT8 CheckByteNum,
+  IN UINT8 Channel);
+
+
+
+BOOLEAN Tx_DQSO_WriteLeveling_CheckRange(
+  IN EFI_PEI_SERVICES **PeiServices,
+  IN DRAM_ATTRIBUTE *DramAttr,
+  IN UINT8 RankIndex,	
+  IN UINT16    TxCalNum,
+  IN BOOLEAN ECC_ENABLE);
+
+
+
+VOID Tx_DQSO_WriteLeveling_SaveTemp(
+  IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+  IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+  IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+    IN DRAM_ATTRIBUTE *DramAttr,
+    IN UINT8 RankIndex,
+    IN UINT8 wlvlIndex);
+
+
+
+
+VOID HW_DQO_LCU(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr);
+
+
+
+VOID HW_DQSO_LCU(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr); 
+
+VOID HW_DQSO_LCU_2D(
+       IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+       IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+       IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+       IN DRAM_ATTRIBUTE *DramAttr) ;
+
+
+VOID HW_DQSO_WriteLeveling(
+  IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+  IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+  IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+  IN DRAM_ATTRIBUTE *DramAttr);
+
+
+VOID HW_TX_WriteLeveling(
+  IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+  IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+  IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+  IN DRAM_ATTRIBUTE *DramAttr);
+
+UINT16 TxVref_From_Tx_Eye(
+	IN EFI_PEI_SERVICES **PeiServices,
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN UINT8 ByteIndex,
+	IN OUT TX_VREF_DQO_INFO TxVref_Info[74][ASIA_MAX_BYTES]);	
+	
+
+VOID Tx_VrefDQO_Cal(
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr);	
+	
+
+typedef struct 
+{
+	UINT16 DQSIRange[ASIA_MAX_BYTES][ASIA_MAX_BIT][2] ;
+	UINT8 RxVrefValue;
+} DQSI_Vref;
+
+
+struct RxVref_Result
+{
+	UINT8 (*DQSIRange)[ASIA_MAX_BIT][2] ;
+	UINT8 RankIndex;
+	UINT8 RxVrefValue;
+
+	struct RxVref_Result *next;
+};
+
+#define VREFC_MASK 0x3F3F
+struct RxVref_Register_Setting
+{
+	UINT32 VREFF;
+	UINT16 VREFC;
+};
+
+
+	
+	//RX Vref Related
+VOID Rx_Vref_SetVal_ByByte(
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN UINT8 RankIndex,
+		IN UINT8 ByteIndex,
+		IN UINT8 RxVrefValue[],//bit0 -> bit7
+		IN UINT8 VrefMode);	
+	
+VOID Rx_Vref_SetVal_ByBit_WholeByte(
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN UINT8 RankIndex,
+		IN UINT8 ByteIndex,
+		IN UINT8 RxVrefValue);	
+	
+UINT8 Rx_Vref_GetVal(
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN UINT8 RankIndex,
+		IN UINT8 ByteIndex,
+		IN UINT8 BitIndex);
+	
+	//set the same rxvref value for a rank
+VOID Rx_Vref_SetVal(
+	  IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+			IN DRAM_ATTRIBUTE *DramAttr,
+			IN UINT8 RankIndex,
+			IN UINT8 RxVrefValue,
+			IN UINT8 VrefMode);
+
+	
+VOID SaveRestoreRxVref(
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN BOOLEAN	Save,
+		IN OUT struct  RxVref_Register_Setting *SaveByte);
+	
+	
+	//Base on  pRxVref_Start find the spec range 
+	//if not find return -1
+INT8 Get_Rxvref_DQSI_Range(
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN UINT8 RankIndex,
+		IN UINT8 ByteIndex,
+		IN UINT8 BitIndex,
+		IN UINT8 RxVrefIndex,
+		IN UINT8 Edge,	//pos or neg
+		IN struct RxVref_Result *pRxVref_Start);	
+
+	
+VOID Select_RxVref_From_Rx_Eye(
+		IN EFI_PEI_SERVICES **PeiServices,
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN UINT8 RankIndex,
+		IN BOOLEAN ECC_ENABLE,
+		IN DQSI_Vref *RxVref_Start,
+		IN OUT UINT8 (*RxVref_PerBit)[ASIA_MAX_BYTES][ASIA_MAX_BIT],
+		IN OUT UINT8 (*RxVref_PerBit_Infs)[ASIA_MAX_BYTES][ASIA_MAX_BIT],
+		IN OUT UINT8 (*RxVref_PerBit_Sups)[ASIA_MAX_BYTES][ASIA_MAX_BIT],	
+		IN UINT8 BlockNum,
+		IN UINT16 Cal_Byte);
+	
+						
+VOID Internal_VREF_Range_Select(IN DRAM_ATTRIBUTE *DramAttr,UINT8 RankIndex,UINT8 ByteIndex, UINT8 VrefIndex);
+	
+VOID Vref_Range_Select_For_Cal(IN DRAM_ATTRIBUTE *DramAttr,UINT8 RankIndex, UINT8 VrefIndex, UINT8 VrefMode);
+	
+	
+VOID SetVrefRange(
+		IN EFI_PEI_SERVICES **PeiServices,
+	#if (PI_SPECIFICATION_VERSION < 0x00010000)
+			IN PEI_PCI_CFG_PPI *pPCIPPI,
+	#else
+			IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+	#endif
+		IN DRAM_ATTRIBUTE *DramAttr);
+	
+	
+	
+VOID Enable_Disable_Vref_Overlap(	
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN UINT8 RankIndex,
+		IN UINT8 ByteIndex,
+		IN BOOLEAN Status);
+	
+VOID Enable_Disable_Vref_Coarse_Mode(	
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN UINT8 RankIndex,
+		IN UINT8 ByteIndex,
+		IN BOOLEAN Status);
+	
+VOID Rx_Vref_ClearModeStatus(	
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr);
+	
+VOID VrefC_Sync_By_Mode_By_Byte(	
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN UINT8 RankIndex,
+		IN UINT8 ByteIndex,
+		IN OUT UINT8 (*RxVref)[ASIA_MAX_BIT],
+		IN UINT8 VrefMax[],
+		IN UINT8 VrefMin[]);
+	
+	
+VOID Check_VrefC_Within_Byte(
+	  IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN BOOLEAN ECC_ENABLE,
+		IN OUT UINT8 (*RxVref_PerBit)[ASIA_MAX_BYTES][ASIA_MAX_BIT],
+		IN OUT UINT8 (*RxVref_CHA)[ASIA_MAX_BIT],
+		IN OUT UINT8 (*RxVref_CHB)[ASIA_MAX_BIT],
+		IN UINT16 CHA_SettingByte,
+		IN UINT16 CHB_SettingByte);
+	
+	
+	
+VOID Rx_Vref_SetRegister(
+	  IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN BOOLEAN ECC_ENABLE,
+		IN OUT UINT8 (*RxVref_CHA)[ASIA_MAX_BIT],
+		IN OUT UINT8 (*RxVref_CHB)[ASIA_MAX_BIT],
+		IN UINT16 CHA_SettingByte,	
+		IN UINT16 CHB_SettingByte);
+	
+VOID LOOP_Vref_DO_DQSI_Calibration_Readpreamble(
+	 IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+    IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+    IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr,
+	IN BOOLEAN ECC_ENABLE,
+	IN UINT8 Cal_RankPresent,
+	IN UINT8 RxVrefStep,
+	IN UINT8 BlockNum,
+	IN DQSI_Vref *RxVref_Start,
+	IN OUT UINT8 (*RxVref_PerBit)[ASIA_MAX_BYTES][ASIA_MAX_BIT],
+	IN OUT UINT8 (*RxVref_PerBit_Infs)[ASIA_MAX_BYTES][ASIA_MAX_BIT],
+	IN OUT UINT8 (*RxVref_PerBit_Sups)[ASIA_MAX_BYTES][ASIA_MAX_BIT]);	
+	 
+VOID LOOP_Vref_DO_DQSI_Calibration(
+		 IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN BOOLEAN ECC_ENABLE,
+		IN UINT8 Cal_RankPresent,
+		IN UINT8 RxVrefStep,
+		IN UINT8 BlockNum,
+		IN DQSI_Vref *RxVref_Start,
+		IN OUT UINT8 (*RxVref_PerBit)[ASIA_MAX_BYTES][ASIA_MAX_BIT],
+		IN OUT UINT8 (*RxVref_PerBit_Infs)[ASIA_MAX_BYTES][ASIA_MAX_BIT],
+		IN OUT UINT8 (*RxVref_PerBit_Sups)[ASIA_MAX_BYTES][ASIA_MAX_BIT]);
+	
+	
+	
+BOOLEAN IsNeedVrefCoarseMode(
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr,
+		IN UINT8 *Cal_RankPresent);
+	
+	
+VOID Rx_VrefDQSI_Cal(
+	  IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+			IN DRAM_ATTRIBUTE *DramAttr);
+	
+	
+VOID Rx_VrefDQSI_Cal_New(
+	  IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+			IN DRAM_ATTRIBUTE *DramAttr);
+
+VOID SetDdrcomp(
+  IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+  IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+  IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+  IN DRAM_ATTRIBUTE *DramAttr,
+  IN BOOLEAN RAUTO );
+
+EFI_STATUS IOTimingControl(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000)
+	IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+	IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+	IN DRAM_ATTRIBUTE *DramAttr);
+
+
+
+extern UINT8 TxVrefTable[74]; 
+
+
+
+
+
+#endif
+

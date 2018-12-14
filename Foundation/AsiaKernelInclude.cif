@@ -1,0 +1,12 @@
+<component>
+	name = "AsiaKernelInclude"
+	category = ModulePart
+	LocalRoot = "ASIA\Foundation\"
+	RefName = "AsiaKernelInclude"
+[files]
+"Include\AsiaCommon.h"
+"Library\Include\AsiaIoLib.h"
+"Library\Include\AsiaIoSaveLib.h"
+"Library\AsiaIoLib\IA32\AsiaIoAccess.asm"
+"Library\AsiaIoLib\X64\AsiaIoAccess.asm"
+<endComponent>

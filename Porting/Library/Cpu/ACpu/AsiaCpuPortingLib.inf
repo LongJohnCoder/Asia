@@ -1,0 +1,60 @@
+#**********************************************************************
+#**********************************************************************
+#**                                                                  **
+#**     Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.  **
+#**                                                                  **
+#**********************************************************************
+#**********************************************************************
+
+[defines]
+BASE_NAME            = AsiaCpuPortingLib
+COMPONENT_TYPE       = LIBRARY
+
+[sources.common]
+  CpuFeatureInit.c
+  CpuidMaximumLimit.c
+  CpuInfo.c
+  CState.c
+  EpsInit.c
+  ExecuteDisable.c
+  FastString.c
+  Ferr.c
+  MachineCheck.c
+  MicrocodeUpdate.c
+  MonitorMWait.c
+  Prefetcher.c
+  Prochot.c
+  ThermalMonitor.c
+  TPREcho.c
+  ACpuCommon.c
+  Vt.c
+  PStates.c
+  TscDelay.c
+  pmon.c
+  TscDeadLine.c
+  Txt.c
+
+[sources.Ia32]
+  ia32\CpuIa32.asm
+  
+[sources.x64]
+  x64\CpuX64.asm
+  
+[includes.common]
+  $(ASIA_SOURCE)\IBV\Common\Include 
+  $(ASIA_SOURCE)\IBV\Common\Include\ia32
+  $(ASIA_SOURCE)\IBV\Common\efi
+  $(ASIA_SOURCE)\Ibv\Common\Cpu\Include
+  $(ASIA_SOURCE)\IBV\Common\Efi\Include
+  $(ASIA_SOURCE)\IBV\Common\Framework\Include
+  $(ASIA_SOURCE)\IBV\Common\Include\Pei
+  $(ASIA_SOURCE)\IBV\Common\Library\Pei\Include
+  $(ASIA_SOURCE)\IBV\Common\Library\Dxe\Include
+  $(ASIA_SOURCE)\IBV\Common\Framework
+  $(ASIA_SOURCE)\Foundation\Library\Include
+  $(ASIA_SOURCE)\Interface
+
+[libraries.common]
+  AsiaIoLib
+
+[nmake.common]

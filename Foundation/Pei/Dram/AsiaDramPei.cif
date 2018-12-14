@@ -1,0 +1,16 @@
+<component>
+	name = "AsiaDramPei"
+	category = ModulePart
+	LocalRoot = "Asia\Foundation\Pei\Dram\"
+	RefName = "AsiaDramPei"
+[files]
+"AsiaDramPei.sdl"	
+"AsiaDramPei.mak"	
+"DramUtil.c"	
+"DramUtil.h"	
+"AsiaDramPeim.c"
+"AsiaDramPeim.h"
+"AsiaDramPeim.dxs"	
+"spd.h"	
+"SPD.c"	
+<endComponent>

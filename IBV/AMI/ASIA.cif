@@ -1,0 +1,14 @@
+<component>
+	name = "ASIA"
+	category = eModule
+	LocalRoot = "Asia\IBV\AMI\"
+	RefName = "ASIA"
+[files]
+"ASIA.sdl"	
+[parts]
+"ASIA_Kernel"
+"ASIA_NB"
+"ASIA_SB"
+"ASIA_MB"
+"ASIA_CPU"
+<endComponent>

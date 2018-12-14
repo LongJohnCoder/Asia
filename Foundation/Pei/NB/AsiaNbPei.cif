@@ -1,0 +1,12 @@
+<component>
+	name = "AsiaNbPei"
+	category = ModulePart
+	LocalRoot = "Asia\Foundation\Pei\NB\"
+	RefName = "AsiaNbPei"
+[files]
+"AsiaNbPei.sdl"	
+"AsiaNbPei.mak"	
+"AsiaNbPeim.c"	
+"AsiaNbPeim.h"
+"AsiaNbPeim.dxs"		
+<endComponent>

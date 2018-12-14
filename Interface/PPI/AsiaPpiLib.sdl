@@ -1,0 +1,19 @@
+#//**********************************************************************
+#//**********************************************************************
+#//**                                                                  **
+#//**     Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.  **
+#//**********************************************************************
+#//**********************************************************************
+TOKEN
+	Name  = AsiaPpiLib_SUPPORT
+	Value  = 1
+	TokenType = Boolean
+	TargetEQU = Yes
+	TargetMAK = Yes
+	Master = Yes
+	Help  = "Main switch to enable AsiaPpiLib support in Project"
+End
+MODULE
+	Help  = "Includes AsiaPpiLib.mak to Project"
+	File  = "AsiaPpiLib.mak"
+End

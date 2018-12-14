@@ -1,0 +1,14 @@
+#//**********************************************************************
+#//**********************************************************************
+#//**                                                                  **
+#//**     Copyright (c) 2008-2015 Zhaoxin Technologies, Inc.               **
+#//**                                                                  **
+#//**********************************************************************
+#//**********************************************************************
+## [ Note ]
+##	Public ASIA Package: ASIAnn_xx.yy.zz
+##		xx: ASIA interface major version number. 
+##		yy: ASIA interface minor version number. 
+##		zz: ASIA Package version number.
+##		nn: Platform Name. 
+

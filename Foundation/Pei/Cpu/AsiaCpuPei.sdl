@@ -1,0 +1,26 @@
+#//**********************************************************************
+#//**********************************************************************
+#//**                                                                  **
+#//**             Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.                                                      **
+#//**********************************************************************
+#//**********************************************************************
+TOKEN
+	Name  = "AsiaCpuPei_SUPPORT"
+	Value  = "1"
+	Help  = "Main switch to enable AsiaCpuPei support in Project"
+	TokenType = Boolean
+	TargetMAK = Yes
+	Master = Yes
+End
+
+MODULE
+	Help  = "Includes AsiaCpuPei.mak to Project"
+	File  = "AsiaCpuPei.mak"
+End
+
+ELINK
+	Name  = "$(BUILD_DIR)\AsiaCpuPei.ffs"
+	Parent  = "FV_BB"
+	InvokeOrder = BeforeParent
+End
+

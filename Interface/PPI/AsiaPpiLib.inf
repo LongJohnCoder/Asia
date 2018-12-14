@@ -1,0 +1,35 @@
+#//**********************************************************************
+#//**********************************************************************
+#//**                                                                  **
+#//**     Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.  **
+#//**                                                                  **
+#//**********************************************************************
+#//**********************************************************************
+
+[defines]
+BASE_NAME= AsiaPpiLib
+COMPONENT_TYPE= LIBRARY
+
+[includes.common]
+  $(ASIA_SOURCE)\Ibv\Common
+  $(ASIA_SOURCE)\Ibv\Common\Include
+  $(ASIA_SOURCE)\Ibv\Common\Include\Pei
+  $(ASIA_SOURCE)\Ibv\Common\Efi
+  $(ASIA_SOURCE)\Ibv\Common\Efi\Include
+  $(ASIA_SOURCE)\Ibv\Common\Framework
+  $(ASIA_SOURCE)\Ibv\Common\Framework\Include
+  .
+  $(ASIA_SOURCE)\Interface
+  
+[sources.common]
+AsiaCpuPpi\AsiaCpuPpi.c
+AsiaCpuPpi\AsiaCpuPpi.h
+AsiaNbPpi\AsiaNbPpi.c
+AsiaNbPpi\AsiaNbPpi.h
+AsiaSbPpi\AsiaSbPpi.c
+AsiaSbPpi\AsiaSbPpi.h
+AsiaDramPpi\AsiaDramPpi.c
+AsiaDramPpi\AsiaDramPpi.h
+
+[nmake.common]
+	C_FLAGS=$(C_FLAGS) /DNB_CFG_FILE=$(ASIA_NBTYPE)Cfg /DSB_CFG_FILE=$(ASIA_SBTYPE)Cfg

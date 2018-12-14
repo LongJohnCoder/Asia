@@ -1,0 +1,27 @@
+#//**********************************************************************
+#//**********************************************************************
+#//**                                                                  **
+#//**        Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.                                                           **
+#//**********************************************************************
+#//**********************************************************************
+TOKEN
+	Name  = "AsiaDramPei_SUPPORT"
+	Value  = "1"
+	Help  = "Main switch to enable AsiaDramPei support in Project"
+	TokenType = Boolean
+	TargetEQU = Yes
+	TargetMAK = Yes
+	Master = Yes
+End
+
+MODULE
+	Help  = "Includes AsiaDramPei.mak to Project"
+	File  = "AsiaDramPei.mak"
+End
+
+ELINK
+	Name  = "$(BUILD_DIR)\AsiaDramPei.ffs"
+	Parent  = "FV_BB"
+	InvokeOrder = BeforeParent
+End
+

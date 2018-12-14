@@ -1,0 +1,12 @@
+<component>
+	name = "AsiaCpuPei"
+	category = ModulePart
+	LocalRoot = "Asia\Foundation\Pei\Cpu\"
+	RefName = "AsiaCpuPei"
+[files]
+"AsiaCpuPei.sdl"	
+"AsiaCpuPei.mak"	
+"AsiaCpuPpiInterface.h"	
+"AsiaCPUPeim.c"	
+"AsiaCPUPeim.dxs"
+<endComponent>

@@ -1,0 +1,53 @@
+#/*++
+#
+#  Module Name:
+#
+#  Abstract:
+#
+#
+#--*/
+
+[defines]
+BASE_NAME            = AsiaPlatformLib
+COMPONENT_TYPE       = LIBRARY
+
+[sources.common]
+    SIPCIEDriving.c
+    SIDRAMTbl.c
+    SbDriving.c
+    SICkgsrcTbl.c
+    LegacyBusSI.c
+    AsiaPlatform.c
+    ..\AsiaInitCfgStructDefval.c
+
+[includes.common]
+	$(ASIA_SOURCE)\IBV\Common\Framework\Include
+	$(ASIA_SOURCE)\IBV\Common\Framework
+	$(ASIA_SOURCE)\IBV\Common
+	$(ASIA_SOURCE)\IBV\Common\Efi
+	$(ASIA_SOURCE)\IBV\Common\Efi\Include
+	$(ASIA_SOURCE)\IBV\Common\Include
+	$(ASIA_SOURCE)\IBV\Common\Include\Pei
+	$(ASIA_SOURCE)\IBV\Common\Library\Pei\Include
+	$(ASIA_SOURCE)\IBV\Common\Library\Dxe\Include
+	.
+	$(ASIA_SOURCE)\Interface\Ppi
+	$(ASIA_SOURCE)\Interface\
+	$(ASIA_SOURCE)\Foundation\Pei\Dram
+	$(ASIA_SOURCE)\Foundation\include
+	$(ASIA_SOURCE)\Foundation\Library\include
+	$(ASIA_SOURCE)\Porting\Include
+	$(ASIA_SOURCE)\Porting\Pei\Dram\$(ASIA_NBTYPE)
+	$(ASIA_SOURCE)\Porting\Pei\NB\$(ASIA_NBTYPE)
+	$(ASIA_SOURCE)\Porting\Pei\SB\$(ASIA_SBTYPE)
+
+[libraries.common]
+  AsiaIoSaveLib
+
+[libraries.X64]    
+  AsiaProtocolLib
+  EfiDriverLib
+  EfiScriptLib  
+
+[nmake.common]
+#	C_FLAGS=$(C_FLAGS) /DNB_CFG_FILE=$(ASIA_NBTYPE)Cfg

@@ -1,0 +1,50 @@
+#//**********************************************************************
+#//**********************************************************************
+#//**                                                                  **
+#//**     Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.  **
+#//**                                                                  **
+#//**********************************************************************
+#//**********************************************************************
+
+[defines]
+BASE_NAME            = AsiaDramPeim
+FILE_GUID            = B41B4CD9-2D67-466a-A36F-8E90377390C5
+COMPONENT_TYPE       = PE32_PEIM
+
+[sources.common]
+	DramUtil.c
+	AsiaDramPeim.c
+	SPD.c    
+
+[includes.common]
+	$(ASIA_SOURCE)\IBV\Common\
+	$(ASIA_SOURCE)\IBV\Common\Framework\Include
+	$(ASIA_SOURCE)\IBV\Common\Framework
+	$(ASIA_SOURCE)\IBV\Common\Efi
+	$(ASIA_SOURCE)\IBV\Common\Efi\Include
+	$(ASIA_SOURCE)\IBV\Common\Include
+	$(ASIA_SOURCE)\IBV\Common\Include\Pei
+	$(ASIA_SOURCE)\IBV\Common\Library\Pei\Include
+
+	$(ASIA_SOURCE)\Interface\
+	$(ASIA_SOURCE)\Interface\Ppi\AsiaSbPpi  
+	$(ASIA_SOURCE)\Foundation
+	$(ASIA_SOURCE)\Foundation\include
+	$(ASIA_SOURCE)\Foundation\Library\include
+	$(ASIA_SOURCE)\Porting\Pei\Sb\$(ASIA_SBTYPE)
+	$(ASIA_SOURCE)\Foundation\Pei\Sb
+	$(ASIA_SOURCE)\PLATFORM\$(ASIA_MBTYPE)
+
+[libraries.common]
+	EdkPpiLib
+	EdkFrameworkPpiLib
+	PeiLib
+	PeiHobLib
+	AsiaPpiLib
+	AsiaIoLib
+	AsiaDramPeimLib
+	
+[nmake.common]
+	IMAGE_ENTRY_POINT=AsiaDramPeimEntryPoint
+	DPX_SOURCE=AsiaDramPeim.dxs
+	C_FLAGS=$(C_FLAGS) /DNB_CFG_FILE=$(ASIA_NBTYPE)Cfg /DSB_CFG_FILE=$(ASIA_SBTYPE)Cfg 

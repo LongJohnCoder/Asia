@@ -1,0 +1,19 @@
+#//**********************************************************************
+#//**********************************************************************
+#//**                                                                  **
+#//**     Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.  **
+#//**********************************************************************
+#//**********************************************************************
+TOKEN
+	Name  = AsiaProtocolLib_SUPPORT
+	Value  = 1
+	TokenType = Boolean
+	TargetEQU = No
+	TargetMAK = Yes
+	Master = Yes
+	Help  = "Main switch to enable AsiaProtocolLib support in Project"
+End
+MODULE
+	Help  = "Includes AsiaProtocolLib.mak to Project"
+	File  = "AsiaProtocolLib.mak"
+End

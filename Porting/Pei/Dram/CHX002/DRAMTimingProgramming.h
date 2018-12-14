@@ -1,0 +1,260 @@
+//**********************************************************************
+//**********************************************************************
+//**                                                                  **
+//**     Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.  **
+//**                                                                  **
+//**********************************************************************
+//**********************************************************************
+
+#ifndef _DRAMTIMINGPROGRAMMING_H
+#define _DRAMTIMINGPROGRAMMING_H
+
+
+
+
+
+#define MAX_ERROR 1
+#define MIN_ERROR 2
+
+
+VOID DRAMTimingTurnAround(IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr);
+
+
+VOID DRAMTimingDynamicclock(IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr);
+
+
+VOID DRAMTimingStab(IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN OUT DRAM_ATTRIBUTE *DramAttr);
+
+VOID DRAMTimingCL(IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN OUT DRAM_ATTRIBUTE *DramAttr);
+
+VOID DRAMTimingTrp(IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN OUT DRAM_ATTRIBUTE *DramAttr);
+
+VOID DRAMTimingTrcd(IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN OUT DRAM_ATTRIBUTE *DramAttr);
+
+VOID DRAMTimingTras(IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN OUT DRAM_ATTRIBUTE *DramAttr);
+
+VOID DRAMTimingTrfc(IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN OUT DRAM_ATTRIBUTE *DramAttr);
+
+VOID DRAMTimingTrrd(IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN OUT DRAM_ATTRIBUTE *DramAttr);
+
+VOID DRAMTimingTwr(IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN OUT DRAM_ATTRIBUTE *DramAttr);
+
+VOID DRAMTimingTwtr(IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN OUT DRAM_ATTRIBUTE *DramAttr);
+
+VOID DRAMTimingTrtp(IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN OUT DRAM_ATTRIBUTE *DramAttr);
+
+VOID DRAMTimingCWL(IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN OUT DRAM_ATTRIBUTE *DramAttr);
+
+VOID DRAMTimingTfawx(IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN OUT DRAM_ATTRIBUTE *DramAttr);
+VOID DRAMTimingTcke(IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr);
+VOID DRAMTimingTxp(IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr);
+
+VOID DRAMTimingRTXSREXT(IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr);
+
+VOID DRAMTimingTrrd_SG(IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN OUT DRAM_ATTRIBUTE *DramAttr);
+
+VOID DRAMTimingTccd_SG(IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN OUT DRAM_ATTRIBUTE *DramAttr);
+
+VOID DRAMTimingTwtr_SG(IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN OUT DRAM_ATTRIBUTE *DramAttr);
+
+VOID DRAMTimingCAL(IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN OUT DRAM_ATTRIBUTE *DramAttr);
+
+VOID DRAMTimingTrfc_dlr(IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN OUT DRAM_ATTRIBUTE *DramAttr);
+
+VOID DRAMTimingTrfc_pb(IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN OUT DRAM_ATTRIBUTE *DramAttr);
+
+
+VOID DRAMTimingPreamble(IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr);
+
+
+VOID DRAMTimingBankInterleave(IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN OUT DRAM_ATTRIBUTE *DramAttr);
+
+VOID DRAMTimingBurstLength(IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr);
+
+
+VOID DRAMTimingODT(
+	IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr) ;
+
+
+EFI_STATUS DRAMTimingProgramming(
+		IN EFI_PEI_SERVICES **PeiServices,
+#if (PI_SPECIFICATION_VERSION < 0x00010000) 
+		IN PEI_PCI_CFG_PPI *pPCIPPI,
+#else
+		IN EFI_PEI_PCI_CFG2_PPI *pPCIPPI,
+#endif
+		IN DRAM_ATTRIBUTE *DramAttr);
+
+VOID ACTimingError(
+	IN EFI_PEI_SERVICES **PeiServices,
+	UINT8 Errortype,
+	UINT32 Calvalue,
+	UINT32 Limitvalue,
+	char *ErrorInfo
+	);
+
+
+#endif
+

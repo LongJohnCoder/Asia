@@ -1,0 +1,39 @@
+#//**********************************************************************
+#//**********************************************************************
+#//**                                                                  **
+#//**     Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.  **
+#//**                                                                  **
+#//**********************************************************************
+#//**********************************************************************
+
+[defines]
+  BASE_NAME = AsiaSbDxePortingLib
+  COMPONENT_TYPE = LIBRARY
+
+[sources.common]
+  AsiaSbDxeInit.c
+  HdAc.c
+  SataDxe.c
+  UsbDxe.c
+[includes.common]
+  $(ASIA_SOURCE)\Ibv\Common
+  $(ASIA_SOURCE)\Ibv\Common\Include
+  $(ASIA_SOURCE)\Ibv\Common\Efi
+  $(ASIA_SOURCE)\Ibv\Common\Efi\Include
+  $(ASIA_SOURCE)\Ibv\Common\Framework
+  $(ASIA_SOURCE)\Ibv\Common\Framework\Include
+  $(ASIA_SOURCE)\Ibv\Common\Library\Dxe\Include
+  .
+  $(ASIA_SOURCE)\Interface
+  $(ASIA_SOURCE)\Foundation\
+  $(ASIA_SOURCE)\Foundation\include
+  $(ASIA_SOURCE)\Foundation\Dxe\Sb  
+  $(ASIA_SOURCE)\Foundation\Library\Include
+  $(ASIA_SOURCE)\Porting\Include
+  $(ASIA_SOURCE)\Platform\$(ASIA_MBTYPE)
+
+[libraries.common]
+  AsiaIoSaveLib
+  AsiaPlatformLib
+[nmake.common]
+  ASM_FLAGS = $(ASM_FLAGS) /W0

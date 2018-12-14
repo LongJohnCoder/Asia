@@ -1,0 +1,56 @@
+//**********************************************************************
+//**********************************************************************
+//**                                                                  **
+//**     Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.  **
+//**                                                                  **
+//**********************************************************************
+//**********************************************************************
+
+[defines]
+  BASE_NAME = AsiaNbPeimLib
+  COMPONENT_TYPE = LIBRARY
+
+[sources.common]
+  DbgSignal.c
+  NbInit.c
+  NbPcie.c
+  NbHif.c
+  NbPcieCommon.c
+  ..\..\SB\CND003\IoePreInit.c  
+  ..\..\SB\CND003\IoeDebugSignal.c
+  PciHotPlug.c
+[includes.common]
+    $(ASIA_SOURCE)\IBV\Common
+	$(ASIA_SOURCE)\IBV\Common\Framework\Include
+	$(ASIA_SOURCE)\IBV\Common\Framework
+	$(ASIA_SOURCE)\IBV\Common\Efi
+	$(ASIA_SOURCE)\IBV\Common\Efi\Include
+	$(ASIA_SOURCE)\IBV\Common\Include
+	$(ASIA_SOURCE)\IBV\Common\Include\Pei
+	$(ASIA_SOURCE)\IBV\Common\Library\Pei\Include
+	$(ASIA_SOURCE)\IBV\Common\Library\Dxe\Include
+	$(ASIA_SOURCE)\IBV\Common\Cpu\Include
+
+	$(ASIA_SOURCE)\Interface\Ppi\AsiaSbPpi
+	$(ASIA_SOURCE)\Interface\
+	$(ASIA_SOURCE)\Foundation\include
+	$(ASIA_SOURCE)\Foundation\Pei\Cpu	
+	$(ASIA_SOURCE)\Porting\Include
+	$(ASIA_SOURCE)\Platform\$(ASIA_MBTYPE)
+	$(ASIA_SOURCE)\Porting\Pei\Sb\$(ASIA_SBTYPE)
+	$(ASIA_SOURCE)\Foundation
+	$(ASIA_SOURCE)\Foundation\Pei\Nb
+	$(ASIA_SOURCE)\Foundation\Pei\Sb
+	$(ASIA_SOURCE)\Foundation\Library\include
+	$(ASIA_SOURCE)\Platform\$(ASIA_IOETYPE)
+	$(ASIA_SOURCE)\Platform
+
+[libraries.common]
+  AsiaPpiLib
+  AsiaIoLib
+  AsiaPlatformLib
+  AsiaCpuPortingLib
+  AsiaIoePlatformLib
+
+[nmake.common]
+	C_FLAGS=$(C_FLAGS) /DNB_CFG_FILE=$(ASIA_NBTYPE)Cfg

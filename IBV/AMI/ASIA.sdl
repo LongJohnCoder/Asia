@@ -1,0 +1,88 @@
+#//**********************************************************************
+#//**********************************************************************
+#//**                                                                  **
+#//**     Copyright (c) 2008-2015 Zhaoxin Technologies, Inc.               **
+#//**                                                                  **
+#//**********************************************************************
+#//**********************************************************************
+TOKEN
+	Name  = ASIA_SUPPORT
+	Value  = "1"
+	TokenType  = Boolean
+	TargetEQU  = Yes
+	TargetMAK  = Yes
+	Master  = Yes
+	Help  = "Main switch to enable ASIA support in Project"
+End
+
+TOKEN
+	Name  = "ASIA_CPUTYPE"
+	Value  = ""
+	TokenType  = Expression
+	TargetMAK  = Yes
+End
+
+TOKEN
+	Name  = "ASIA_NBTYPE"
+	Value  = ""
+	TokenType  = Expression
+	TargetMAK  = Yes
+End
+
+TOKEN
+	Name  = "ASIA_SBTYPE"
+	Value  = ""
+	TokenType  = Expression
+	TargetMAK  = Yes
+End
+
+TOKEN
+	Name  = "ASIA_MBTYPE"
+	Value  = ""
+	TokenType  = Expression
+	TargetMAK  = Yes
+End
+
+
+TOKEN
+	Name  = "MAX_FIXED_RATIO"
+	Value  = "255"
+	Help   =  "U1700,U2250,U3100 limited max bus ratio in decimal format"
+	TokenType  = Integer
+	TargetMAK  = Yes
+End
+
+TOKEN
+	Name  = "ASIA_S3SUPPORT"
+	Value  = "EFI_S3_RESUME"
+	TokenType  = Expression
+	TargetMAK  = Yes
+End
+PATH
+	Name  = "ASIA_DIR"
+	Path  = "ASIA"
+End
+
+PATH
+	Name  = "ASIA_FOUNDATION_DIR"
+	Path  = "$(ASIA_DIR)\Foundation"
+End
+
+PATH
+	Name  = "ASIA_PORTING_DIR"
+	Path  = "$(ASIA_DIR)\Porting"
+End
+
+#**********************************************************************
+#**********************************************************************
+#**                                                                  **
+#**        (C)Copyright 1985-2007, American Megatrends, Inc.         **
+#**                                                                  **
+#**                       All Rights Reserved.                       **
+#**                                                                  **
+#**             6145-F Northbelt Pkwy, Norcross, GA 30071            **
+#**                                                                  **
+#**                       Phone: (770)-246-8600                      **
+#**                                                                  **
+#**********************************************************************
+#**********************************************************************

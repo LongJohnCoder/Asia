@@ -1,0 +1,22 @@
+<component>
+	name = "ASIA - Kernel"
+	category = ModulePart
+	LocalRoot = "Asia\IBV\AMI\"
+	RefName = "ASIA_Kernel"
+[files]
+"ASIA_Kernel.sdl"
+"ASIA.chm"
+[parts]
+"AsiaDramPei"
+"AsiaNbPei"
+"AsiaNbDxe"
+"AsiaSbPei"
+"AsiaSbDxe"
+"AsiaIoLib"
+"AsiaIoSaveLib"
+"AsiaPpiLib"
+"AsiaProtocolLib"
+"AsiaChipsetCfg"
+"AsiaKernelInclude"
+"AsiaIBV"
+<endComponent>

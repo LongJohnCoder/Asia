@@ -1,0 +1,51 @@
+//**********************************************************************
+//**********************************************************************
+//**                                                                  **
+//**     Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.  **
+//**                                                                  **
+//**********************************************************************
+//**********************************************************************
+
+<component>
+	name = "AsiaDramPeiPorting"
+	category = ModulePart
+	LocalRoot = "Asia\Porting\Pei\Dram\Dram-ddr4\CHX002\"
+	RefName = "AsiaDramPeiLib"
+[files]
+	"GetBasicInformation.c"
+	"DRAMInitTable.c"
+	"SIValueProgramming.c"
+	"NBODTLookUpProgramming.c"
+	"DRAMTimingProgramming.c"
+	
+	"DRAMFreqProgramming.c"
+	"InitDRAMByRank.c"
+	"EarlySetupECC.c"
+	"SetRefreshCounter.c"
+	"IOTimingControl.c"
+	"UpdateRankAddr.c"
+	"FinalTableProgramming.c"		
+	"DramInfo.c"
+	"DramS3Init.c"
+	"UmaSet.c"
+	"UmaSet.h"
+	"DramInit.c"
+	"DramInit.h"
+	"CalculateRCBANum.c"
+	"VrefCalibration.c"
+	"SetDramFeature.c"
+	"DramBlock.c"
+	"\debug\cmd_md_mw.c"
+	"\debug\command.c"
+	"\debug\ctype.h"
+	"\debug\Zxstring.h"
+//	"\debug\DramBurstTest.c"
+	"\debug\DramDebug.c"
+	"\debug\DramDebug.h"
+	"\debug\MemTest.asm"
+//	"\debug\nick_mtest.c"
+	"\debug\print.c"
+//	"\debug\Vspiromtest.c"
+	"\debug\vsprintf.c"
+	"\debug\ScanIoTiming.c"
+<endComponent>

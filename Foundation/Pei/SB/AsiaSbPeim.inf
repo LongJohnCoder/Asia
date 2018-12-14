@@ -1,0 +1,44 @@
+#//**********************************************************************
+#//**********************************************************************
+#//**                                                                  **
+#//**     Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.  **
+#//**                                                                  **
+#//**********************************************************************
+#//**********************************************************************
+
+[defines]
+  BASE_NAME = AsiaSbPei
+  FILE_GUID = 24FF6EBD-9310-4f0e-9D10-99A486CD9280
+  COMPONENT_TYPE = PE32_PEIM
+
+[sources.common]
+	AsiaSbPeim.c  
+
+[includes.common]
+	$(ASIA_SOURCE)\IBV\Common\Framework\Include
+	$(ASIA_SOURCE)\IBV\Common\Framework
+	$(ASIA_SOURCE)\IBV\Common\Efi
+	$(ASIA_SOURCE)\IBV\Common\Efi\Include
+	$(ASIA_SOURCE)\IBV\Common\Include
+	$(ASIA_SOURCE)\IBV\Common\Include\Pei
+	$(ASIA_SOURCE)\IBV\Common\Library\Pei\Include
+	$(ASIA_SOURCE)\IBV\Common
+  .
+	$(ASIA_SOURCE)\
+	$(ASIA_SOURCE)\Interface
+	$(ASIA_SOURCE)\Foundation\include
+	$(ASIA_SOURCE)\Foundation
+	$(ASIA_SOURCE)\Porting\include
+
+
+[libraries.common]
+  EdkFrameworkPpiLib
+  AsiaPpiLib
+  PeiLib
+  AsiaSbPeimlib
+
+[nmake.common]
+  IMAGE_ENTRY_POINT = AsiaSbPeimEntryPoint
+  DPX_SOURCE = AsiaSbPeim.dxs
+  C_FLAGS=$(C_FLAGS) /DSB_CFG_FILE=$(ASIA_SBTYPE)Cfg
+  LINK_STD_FLAGS = $(LINK_STD_FLAGS) /align:32  

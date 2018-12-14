@@ -1,0 +1,23 @@
+//**********************************************************************
+//**********************************************************************
+//**                                                                  **
+//**     Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.  **
+//**                                                                  **
+//**********************************************************************
+//**********************************************************************
+
+<component>
+	name = "AsiaProtocolLib"
+	category = ModulePart
+	LocalRoot = "ASIA\Interface\Protocol\"
+	RefName = "AsiaProtocolLib"
+[files]
+"AsiaProtocolLib.sdl"	
+"AsiaProtocolLib.mak"	
+"AsiaCpuProtocol\AsiaCpuProtocol.c"	
+"AsiaCpuProtocol\AsiaCpuProtocol.h"	
+"AsiaNbProtocol\AsiaNbProtocol.h"	
+"AsiaNbProtocol\AsiaNbProtocol.c"	
+"AsiaSbProtocol\AsiaSbProtocol.h"	
+"AsiaSbProtocol\AsiaSbProtocol.c"	
+<endComponent>

@@ -1,0 +1,41 @@
+#//**********************************************************************
+#//**********************************************************************
+#//**                                                                  **
+#//**     Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.  **
+#//**                                                                  **
+#//**********************************************************************
+#//**********************************************************************
+
+[defines]
+BASE_NAME            = AsiaCpuDxe
+FILE_GUID            = 10520025-70B2-4d3e-A0DF-40075C220F5A
+COMPONENT_TYPE       = BS_DRIVER
+
+[sources.common]
+  AsiaCpuDxe.c
+
+[includes.common]
+  $(ASIA_SOURCE)\Ibv\Common\Framework
+  $(ASIA_SOURCE)\Ibv\Common
+  $(ASIA_SOURCE)\Ibv\Common\Efi
+  $(ASIA_SOURCE)\Ibv\Common\Include
+  $(ASIA_SOURCE)\Ibv\Common\Efi\Include
+  $(ASIA_SOURCE)\Ibv\Common\Framework\Include
+  $(ASIA_SOURCE)\Ibv\Common\Library\Dxe\Include
+  $(ASIA_SOURCE)\Ibv\Common\Include\Pei
+  $(ASIA_SOURCE)\Ibv\Common\Library\Pei\Include
+  .
+  $(ASIA_SOURCE)\Interface\
+  
+  
+[libraries.common]
+  AsiaProtocolLib
+  AsiaCpuPortingLib
+  EfiDriverLib
+  EfiScriptLib
+
+
+[nmake.common]
+  IMAGE_ENTRY_POINT=AsiaCpuDxeEntry
+  DPX_SOURCE=AsiaCPUDxe.dxs
+

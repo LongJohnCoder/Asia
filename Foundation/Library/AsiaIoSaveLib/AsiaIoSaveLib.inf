@@ -1,0 +1,35 @@
+#//**********************************************************************
+#//**********************************************************************
+#//**                                                                  **
+#//**     Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.  **
+#//**                                                                  **
+#//**********************************************************************
+#//**********************************************************************
+
+[defines]
+  BASE_NAME = AsiaIoSaveLib
+  COMPONENT_TYPE = LIBRARY
+
+[sources.common]
+  AsiaIoSaveLib.c
+#  AsiaIoSaveTable.c
+  
+[includes.common]
+  $(ASIA_SOURCE)\Ibv\Common\Include
+  $(ASIA_SOURCE)\Ibv\Common\Efi
+  $(ASIA_SOURCE)\Ibv\Common\Efi\Include
+  $(ASIA_SOURCE)\Ibv\Common\Framework
+  $(ASIA_SOURCE)\Ibv\Common\Framework\Include
+  $(ASIA_SOURCE)\IBV\Common\Library\Dxe\Include
+  $(ASIA_SOURCE)\Interface
+  $(ASIA_SOURCE)\Foundation\include
+  $(ASIA_SOURCE)\Foundation\Library\Include
+  
+[libraries.common]
+  AsiaIoLib
+ 
+[libraries.X64] 
+  EfiScriptLib
+ 
+[nmake.common]
+  

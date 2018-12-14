@@ -1,0 +1,19 @@
+#//**********************************************************************
+#//**********************************************************************
+#//**                                                                  **
+#//**     Copyright (c) 2008-2015  Technologies, Inc.               **
+#//**                                                                  **
+#//**********************************************************************
+#//**********************************************************************
+TOKEN
+	Name  = AsiaPlatfromLib_SUPPORT
+	Value  = 1
+	TokenType = Boolean
+	TargetMAK = Yes
+	Master = Yes
+	Help  = "Main switch to enable AsiaPlatformLib support in Project"
+End
+MODULE
+	Help  = "Includes AsiaPlatformLib.mak to Project"
+	File  = "AsiaPlatformLib.mak"
+End

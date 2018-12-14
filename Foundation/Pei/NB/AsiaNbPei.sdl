@@ -1,0 +1,27 @@
+#//**********************************************************************
+#//**********************************************************************
+#//**                                                                  **
+#//**      Copyright (c) 2018 Shanghai Zhaoxin Semiconductor Co., Ltd.              **
+#//**                                                                  **
+#//**********************************************************************
+#//**********************************************************************
+TOKEN
+	Name  = "AsiaNbPei_SUPPORT"
+	Value  = "1"
+	Help  = "Main switch to enable AsiaNbPei support in Project"
+	TokenType = Boolean
+	TargetMAK = Yes
+	Master = Yes
+End
+
+MODULE
+	Help  = "Includes AsiaNbPei.mak to Project"
+	File  = "AsiaNbPei.mak"
+End
+
+ELINK
+	Name  = "$(BUILD_DIR)\AsiaNbPei.ffs"
+	Parent  = "FV_BB"
+	InvokeOrder = BeforeParent
+End
+

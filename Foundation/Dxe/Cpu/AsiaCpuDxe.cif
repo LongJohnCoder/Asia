@@ -1,0 +1,12 @@
+<component>
+	name = "AsiaCpuDxe"
+	category = ModulePart
+	LocalRoot = "ASIA\Foundation\Dxe\Cpu\"
+	RefName = "AsiaCpuDxe"
+[files]
+"AsiaCpuDxe.sdl"	
+"AsiaCpuDxe.mak"	
+"AsiaCPUDxe.c"
+"AsiaCPUDxe.h"		
+"AsiaCPUDxe.dxs"	
+<endComponent>

@@ -1,0 +1,49 @@
+#//**********************************************************************
+#//**********************************************************************
+#//**                                                                  **
+#//**     Copyright (c) 2008-2015 Zhaoxin Technologies, Inc.               **
+#//**                                                                  **
+#//**********************************************************************
+#//**********************************************************************
+#;----------------------------------------------------------------------------
+#;Ver	Date			Note
+#;----------------------------------------------------------------------------
+
+TOKEN
+	Name  = "ASIA_CPUTYPE"
+	Value = "ACpu"
+	TokenType = Expression
+	TargetMAK = Yes
+End
+
+#[Secret-Code] ++ S
+TOKEN
+	Name  = "ZX_SECRET_CODE"
+	Value = "1"
+	TokenType = Boolean
+	TargetEQU = Yes
+	TargetH = Yes
+	TargetMAK = Yes
+End
+
+ELINK
+	Name  = "/D ZX_SECRET_CODE=$(ZX_SECRET_CODE)"
+	Parent  = "CFLAGS"
+	InvokeOrder = AfterParent
+End
+#[Secret-Code] ++ E
+
+ELINK 
+        Name  = "/nologo /c /Gy /Gs32768" 
+        Parent  = "CFLAGS" 
+        InvokeOrder = AfterParent 
+End 
+
+
+TOKEN
+	Name  = "CPU_STRING"
+	Value = "CPU-R01"
+	TokenType = Expression
+	TargetMAK = Yes
+	TargetH = Yes
+End

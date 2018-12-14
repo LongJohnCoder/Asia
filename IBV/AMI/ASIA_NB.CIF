@@ -1,0 +1,12 @@
+<component>
+	name = "ASIA - NB: CHX001"
+	category = ModulePart
+	LocalRoot = "Asia\IBV\AMI\"
+	RefName = "ASIA_NB"
+[files]
+"ASIA_NB.SDL"
+[parts]
+"AsiaDramPeiLib"
+"AsiaNbPeiLib"
+"AsiaNbDxeLib"
+<endComponent>
